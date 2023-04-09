@@ -1,56 +1,83 @@
 <x-dashboard title="{{ $title }}">
-    <h3>Report</h3>
+    <h3 class="text-uppercase my-3">Report</h3>
 
-    <ul class="list-group">
-        @foreach($datas as $data)
-        <li class="list-group-item">
-            {{ $data->name }} - {{ $data->description }}
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Jumlah</th>
-                    </tr>
-                </thead>
-                @if($data->cashflow->count())
-                <tbody>
-                    @foreach($data->cashflow as $cf)
+    <div class="row mt-3 mb-3">
+        <div class="col-md-6">
+            <form action="/" method="get">
+                <div class="input-group">
+                    <select
+                        class="form-select"
+                        id="acount"
+                        aria-label="Acount"
+                        name="search"
+                    >
+                        <option selected>Choise Acount</option>
+                        @foreach($acounts as $acount)
+                        <option value="{{ $acount->id }}">
+                            {{ $acount->name }}-{{ $acount->description }}
+                        </option>
 
-                    <tr>
-                        @php $ttl = 0; $jml=0; @endphp
-                        <th scope="row">
-                            {{ $loop->iteration }}
-                        </th>
-                        <td>
-                            {{ \Carbon\Carbon::parse($cf->tgl)->format('d M Y') }}
-                        </td>
-                        <td>{{ $cf->description }}</td>
-                        <td>
-                            @if($data->state == 0) @php $jml = $cf->credit;
-                            @endphp @else @php $jml = $cf->debet; @endphp @endif
-                            @currency($jml)
-                        </td>
-                        @php $ttl = $ttl + $jml @endphp
-                    </tr>
+                        @endforeach
+                    </select>
+                    <button class="btn btn-outline-secondary" type="submit">
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-                    @endforeach
-                    <tr>
-                        <th colspan="3">TOTAL</th>
-                        <th colspan="">@currency($ttl)</th>
-                    </tr>
+    <div class="card">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
 
-                    @else
+                    <th scope="col">Date</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Jumlah</th>
+                </tr>
+            </thead>
 
-                    <tr>
-                        <td colspan="4">Data Masih Kosong</td>
-                    </tr>
-                    @endif
-                </tbody>
-            </table>
-        </li>
+            <tbody>
+                @if($datas->count()) @foreach($datas as $data)
+                <tr>
+                    <th scope="row">
+                        {{ ($datas->currentpage()-1) * $datas->perpage() + $loop->index + 1 }}
+                    </th>
 
-        @endforeach
-    </ul>
+                    <td>
+                        {{ \Carbon\Carbon::parse($data->tgl)->format('d M Y') }}
+                    </td>
+                    <td>{{ $data->description }}</td>
+                    @php $jml = 0; @endphp
+                    <td>
+                        @if($data->acount->state == 0 ) @php $jml =
+                        $data->credit @endphp @else @php $jml = $data->debit
+                        @endphp @endif @currency($jml)
+                    </td>
+                    @php $ttl = 0; $ttl = $ttl+$jml @endphp @endforeach
+                </tr>
+
+                <tr class="fw-bold">
+                    <td colspan="3">Total</td>
+                    <td>@currency($ttl)</td>
+                </tr>
+                @else
+
+                <tr>
+                    <td colspan="4" class="text-center fw-bold">
+                        Data Masih Kosong
+                    </td>
+                </tr>
+                @endif
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col-md-8">
+                {{ $datas->onEachside(2)->links() }}
+            </div>
+        </div>
+    </div>
 </x-dashboard>
