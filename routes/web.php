@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AcountController;
 use App\Http\Controllers\CashController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,14 +20,18 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+Route::controller(ReportController::class)->group(function () {
+    Route::get('/', 'index');
+});
+
 Route::controller(AcountController::class)->group(function () {
-    route::get('cash/acount/checkSlug', 'checkSlug');
+    route::get('/cash/acount/checkSlug', 'checkSlug');
 });
 
 Route::resource('/cash/acount', AcountController::class);
 
 Route::controller(CashController::class)->group(function () {
-    Route::get('/', 'index');
+    Route::get('/cash', 'index');
     Route::get('/cash/create', 'create');
     Route::get('/cash/create-in', 'createin');
     Route::get('/cash/create-out', 'createout');

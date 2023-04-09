@@ -71,7 +71,7 @@ class CashController extends Controller
 
         Cashflow::create($validatedData);
 
-        return redirect('/')->with('success', 'data Telah Tersimpan');
+        return redirect('/cash')->with('success', 'data Telah Tersimpan');
     }
 
     public function edit(Cashflow $cashflow)
@@ -95,12 +95,12 @@ class CashController extends Controller
 
         Cashflow::where('id', $cashflow->id)->update($validatedData);
 
-        return redirect('/')->with('success', 'Data Berhasil Diperbaharui');
+        return redirect('/cash')->with('success', 'Data Berhasil Diperbaharui');
     }
     public function destroy(Cashflow $cashflow)
     {
         $cashflow->destroy($cashflow->id);
 
-        return redirect('/')->with('success', 'Data Berhasil Terhapus');
+        return redirect('/cash')->with('success', 'Data Berhasil Terhapus');
     }
 }
