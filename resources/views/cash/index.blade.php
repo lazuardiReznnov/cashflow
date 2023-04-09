@@ -30,11 +30,19 @@
         <div class="col-md-6">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <a
-                    href="/cash/create"
+                    href="/cash/create-in"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
-                    title="Create New Transaction"
-                    class="btn btn-primary"
+                    title="Transaction In"
+                    class="btn btn-success"
+                    ><i class="bi bi-file-plus"></i
+                ></a>
+                <a
+                    href="/cash/create-out"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Transaction Out"
+                    class="btn btn-danger"
                     ><i class="bi bi-file-plus"></i
                 ></a>
             </div>

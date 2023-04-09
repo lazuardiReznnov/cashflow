@@ -7,7 +7,8 @@
 
         <title>{{ config("app.name", "Laravel") }} || {{ $title }}</title>
 
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        @vite(['resources/sass/app.scss', 'resources/js/app.js']) @stack('css')
+        @stack('script')
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -37,7 +38,7 @@
                             >
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/acount">Acount</a>
+                            <a class="nav-link" href="/cash/acount">Acount</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/report">Report</a>

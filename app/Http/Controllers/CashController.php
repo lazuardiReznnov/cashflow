@@ -38,6 +38,21 @@ class CashController extends Controller
             'datas' => acount::all(),
         ]);
     }
+    public function createin()
+    {
+        return view('cash.create-in', [
+            'title' => 'Add Transaction',
+            'datas' => acount::where('state', '=', 0)->get(),
+        ]);
+    }
+
+    public function createout()
+    {
+        return view('cash.create-out', [
+            'title' => 'Add Transaction',
+            'datas' => acount::where('state', '=', 1)->get(),
+        ]);
+    }
 
     public function store(Request $request)
     {
