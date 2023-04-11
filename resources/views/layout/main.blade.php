@@ -36,12 +36,6 @@
                                 >Home</a
                             >
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/cash/acount">Acount</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/cash">Cash Flow</a>
-                        </li>
                     </ul>
                 </div>
             </div>

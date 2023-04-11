@@ -1,5 +1,5 @@
 <x-dashboard title="{{ $title }}">
-    <h3>Home</h3>
+    <h3>CASHFLOW</h3>
     <p>Date : {{ Date("d M Y") }}</p>
     <div class="row mb-3">
         <div class="col-md-10">
@@ -35,16 +35,33 @@
                     data-bs-placement="top"
                     title="Transaction In"
                     class="btn btn-success"
-                    ><i class="bi bi-file-plus"></i
-                ></a>
+                    ><i class="bi bi-file-plus"></i> Cash In</a
+                >
                 <a
                     href="/cash/create-out"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     title="Transaction Out"
                     class="btn btn-danger"
-                    ><i class="bi bi-file-plus"></i
-                ></a>
+                    ><i class="bi bi-file-plus"> Cash Out</i></a
+                >
+                <a
+                    href="/cash/acount"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Transaction Out"
+                    class="btn btn-primary"
+                    ><i class="bi bi-tag"></i> Acount</a
+                >
+                <a
+                    href="/cash/export"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Transaction Out"
+                    class="btn btn-primary"
+                    ><i class="bi bi-file-earmark-spreadsheet"></i> Export
+                    Excel</a
+                >
             </div>
         </div>
         <div class="col-md-6">

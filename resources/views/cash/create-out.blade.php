@@ -7,7 +7,7 @@
                 @csrf
 
                 <input type="hidden" name="credit" value="0" />
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3 col-md-5">
                     <input
                         class="form-control @error('date') is-invalid @enderror"
                         placeholder="date"

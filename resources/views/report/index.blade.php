@@ -3,6 +3,18 @@
 
     <div class="row mt-3 mb-3">
         <div class="col-md-6">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <a
+                    href="/cash"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Cash Flow"
+                    class="btn btn-primary"
+                    ><i class="bi bi-wallet"></i> CASHFLOW</a
+                >
+            </div>
+        </div>
+        <div class="col-md-6">
             <form action="/" method="get">
                 <div class="input-group">
                     <select

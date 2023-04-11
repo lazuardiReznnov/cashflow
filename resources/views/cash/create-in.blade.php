@@ -6,7 +6,7 @@
             <form action="/cash" method="post">
                 @csrf
                 <input type="hidden" name="debet" value="0" />
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-3 col-md-5">
                     <input
                         class="form-control @error('tgl') is-invalid @enderror"
                         placeholder="date"
