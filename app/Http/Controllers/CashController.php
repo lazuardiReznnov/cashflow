@@ -6,6 +6,9 @@ use App\Models\acount;
 use App\Models\Cashflow;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Exports\CashflowExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CashController extends Controller
 {
@@ -102,5 +105,13 @@ class CashController extends Controller
         $cashflow->destroy($cashflow->id);
 
         return redirect('/cash')->with('success', 'Data Berhasil Terhapus');
+    }
+
+    public function export()
+    {
+        return Excel::download(
+            new CashflowExport(),
+            'cashflow-' . Carbon::now()->timestamp . '.xlsx'
+        );
     }
 }
