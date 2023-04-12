@@ -15,7 +15,7 @@
         <h3>CASHFLOW</h3>
         <p>Date : {{ Date("d M Y") }}</p>
 
-        <table class="table" border="1" padding="0">
+        <table>
             <thead>
                 <tr>
                     <th scope="col">#</th>
