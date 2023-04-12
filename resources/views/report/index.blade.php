@@ -65,7 +65,7 @@
                     @php $jml = 0; @endphp
                     <td>
                         @if($data->acount->state == 0 ) @php $jml =
-                        $data->credit @endphp @else @php $jml = $data->debit
+                        $data->credit @endphp @else @php $jml = $data->debet
                         @endphp @endif @currency($jml)
                     </td>
                     @php $ttl = 0; $ttl = $ttl+$jml @endphp @endforeach

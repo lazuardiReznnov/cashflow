@@ -26,8 +26,8 @@
             @endif
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row justify-content-bettwen">
+        <div class="col-md-8">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <a
                     href="/cash/create-in"
@@ -54,17 +54,26 @@
                     ><i class="bi bi-tag"></i> Acount</a
                 >
                 <a
-                    href="/cash/export"
+                    href="/cash/export-excel"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
-                    title="Transaction Out"
+                    title="Export Excel"
                     class="btn btn-primary"
                     ><i class="bi bi-file-earmark-spreadsheet"></i> Export
                     Excel</a
                 >
+                <a
+                    href="/cash/export-pdf"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Export Pdf"
+                    class="btn btn-primary"
+                    ><i class="bi bi-file-earmark-spreadsheet"></i> Export
+                    Pdf</a
+                >
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form">
                 <div class="input-group mb-3 col-4">
                     <input
