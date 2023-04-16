@@ -6,9 +6,10 @@ use App\Models\acount;
 use App\Models\Cashflow;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use App\Exports\CashflowExport;
+use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CashController extends Controller
 {
@@ -68,7 +69,7 @@ class CashController extends Controller
         ]);
 
         $validatedData['slug'] = Str::slug(
-            $request->acount_id . $request->tgl,
+            $request->acount_id . $request->tgl . $request->description,
             '-'
         );
 
@@ -107,11 +108,33 @@ class CashController extends Controller
         return redirect('/cash')->with('success', 'Data Berhasil Terhapus');
     }
 
-    public function export()
+    public function exportexcel()
     {
         return Excel::download(
             new CashflowExport(),
-            'cashflow-' . Carbon::now()->timestamp . '.xlsx'
+            'cashflow-' . Carbon::today() . '.xlsx'
         );
+    }
+
+    public function exportpdf()
+    {
+        $saldo2 = 0;
+        $saldos = Cashflow::select('debet', 'credit')
+            ->where('tgl', '<', date('Y-m-d'))
+            ->get();
+
+        foreach ($saldos as $saldo) {
+            $saldo2 = $saldo2 + $saldo->credit - $saldo->debet;
+        }
+
+        $pdf = pdf::loadview('cash.pdf', [
+            'datas' => Cashflow::with('acount')
+                ->where('tgl', '=', date('Y-m-d'))
+                ->orderBY('tgl', 'ASC')
+                ->get(),
+            'saldo' => $saldo2,
+        ]);
+
+        return $pdf->download('cashflow-' . Carbon::today() . '.pdf');
     }
 }

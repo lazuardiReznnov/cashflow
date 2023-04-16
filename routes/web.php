@@ -40,5 +40,10 @@ Route::controller(CashController::class)->group(function () {
     Route::get('/cash/{cashflow}/edit', 'edit');
     Route::put('/cash/{cashflow}', 'update');
     Route::delete('/cash/{cashflow}', 'destroy');
+<<<<<<< HEAD
     Route::get('/cash/export', 'export');
+=======
+    Route::get('cash/export-excel', 'exportexcel');
+    Route::get('cash/export-pdf', 'exportpdf');
+>>>>>>> e54706a108f581e68b5e9b35875b6ddfe2d7d9ae
 });
