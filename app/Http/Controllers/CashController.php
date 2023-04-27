@@ -93,7 +93,7 @@ class CashController extends Controller
         return view('cash.edit', [
             'title' => 'Edit Transaction',
             'acount' => acount::all(),
-            'data' => $cashflow,
+            'data' => $cashflow->load('image'),
         ]);
     }
 
@@ -108,6 +108,17 @@ class CashController extends Controller
         ]);
 
         Cashflow::where('id', $cashflow->id)->update($validatedData);
+
+        if ($request->file('url')) {
+            if ($request->old_url) {
+                storage::delete($request->old_url);
+                $cashflow->image->delete();
+            }
+            $valid = $request->validate(['url' => 'image|file|max:2048']);
+            $valid['url'] = $request->file('url')->store('cashflow-pic');
+
+            $cashflow->image()->create($valid);
+        }
 
         return redirect('/cash')->with('success', 'Data Berhasil Diperbaharui');
     }

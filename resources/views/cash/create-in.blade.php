@@ -8,11 +8,13 @@
                 <input type="hidden" name="debet" value="0" />
                 <div class="mb-3 col-md-5">
                     <label for="formFile" class="form-label">Image</label>
+
                     <img
                         width="200"
                         class="img-preview img-fluid mb-2"
                         alt=""
                     />
+
                     <input
                         id="pic"
                         type="file"

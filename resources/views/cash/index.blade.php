@@ -54,11 +54,19 @@
                     ><i class="bi bi-tag"></i> Acount</a
                 >
                 <a
+                    href="/cash/tag"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Tag"
+                    class="btn btn-warning"
+                    ><i class="bi bi-tag"></i> Tags</a
+                >
+                <a
                     href="/cash/export-excel"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     title="Export Excel"
-                    class="btn btn-primary"
+                    class="btn btn-success"
                     ><i class="bi bi-file-earmark-spreadsheet"></i> Export
                     Excel</a
                 >
@@ -67,7 +75,7 @@
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
                     title="Export Pdf"
-                    class="btn btn-primary"
+                    class="btn btn-danger"
                     ><i class="bi bi-file-earmark-spreadsheet"></i> Export
                     Pdf</a
                 >
@@ -191,33 +199,13 @@
                                 <img
                                     width="200"
                                     src="{{ asset('storage/'. $data->image->url) }}"
-                                    class="rounded-circle mx-auto d-block shadow my-3"
+                                    class="rounded mx-auto d-block shadow my-3"
                                     alt="about Image"
                                 />
-                                <form
-                                    action="/dashboard/employee/image/{{ $data->slug }}"
-                                    method="post"
-                                    class="d-inline"
-                                >
-                                    <input
-                                        type="hidden"
-                                        name="id"
-                                        value="{{ $data->image->id }}"
-                                    />
-                                    @method('delete') @csrf
-                                    <button
-                                        class="badge bg-danger"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top"
-                                        title="Delete Image Employee"
-                                        onclick="return confirm('are You sure ??')"
-                                    >
-                                        <i class="bi bi-file-x-fill"></i>
-                                    </button>
-                                </form>
+
                                 @else
                                 <img
-                                    class="rounded-circle mx-auto d-block shadow my-3"
+                                    class="rounded mx-auto d-block shadow my-3"
                                     src="http://source.unsplash.com/200x200?truck"
                                     alt=""
                                     width="250"

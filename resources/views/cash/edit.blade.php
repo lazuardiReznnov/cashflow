@@ -3,8 +3,54 @@
         <div class="col-md-8">
             <h2>Form Edit Transaction</h2>
             <hr class="mb-5" />
-            <form action="/cash/{{ $data->slug }}" method="post">
+            <form
+                action="/cash/{{ $data->slug }}"
+                method="post"
+                enctype="multipart/form-data"
+            >
                 @csrf @method('put')
+
+                <div class="mb-3 col-md-5">
+                    <label for="formFile" class="form-label">Image</label>
+
+                    @if($data->image)
+                    <img
+                        width="200"
+                        class="img-fluid mb-2"
+                        alt=""
+                        src="{{ asset('storage/'. $data->image->url) }}"
+                    />
+                    <input
+                        type="hidden"
+                        name="old_url"
+                        value="{{ $data->image->url }}"
+                    />
+                    @else
+                    <img
+                        width="200"
+                        class="img-preview img-fluid mb-2"
+                        alt=""
+                    />
+                    @endif
+
+                    <input
+                        id="pic"
+                        type="file"
+                        class="form-control @error('url') is-invalid @enderror"
+                        name="url"
+                        value="{{ old('url') }}"
+                        onchange="previewImage()"
+                        autocomplete="url"
+                        autofocus
+                    />
+
+                    @error('url')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
                 <div class="form-floating mb-3">
                     <input
                         class="form-control @error('debet') is-invalid @enderror"
