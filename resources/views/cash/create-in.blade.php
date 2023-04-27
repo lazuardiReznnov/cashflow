@@ -3,9 +3,34 @@
         <div class="col-md-8">
             <h2>Form New Transaction</h2>
             <hr class="mb-5" />
-            <form action="/cash" method="post">
+            <form action="/cash" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="debet" value="0" />
+                <div class="mb-3 col-md-5">
+                    <label for="formFile" class="form-label">Image</label>
+                    <img
+                        width="200"
+                        class="img-preview img-fluid mb-2"
+                        alt=""
+                    />
+                    <input
+                        id="pic"
+                        type="file"
+                        class="form-control @error('url') is-invalid @enderror"
+                        name="url"
+                        value="{{ old('url') }}"
+                        onchange="previewImage()"
+                        autocomplete="url"
+                        autofocus
+                    />
+
+                    @error('url')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
                 <div class="form-floating mb-3 col-md-5">
                     <input
                         class="form-control @error('tgl') is-invalid @enderror"
@@ -82,4 +107,8 @@
             </form>
         </div>
     </div>
+    @push('script')
+    <script src="/asset/js/lazuardicode.js"></script>
+
+    @endpush
 </x-dashboard>

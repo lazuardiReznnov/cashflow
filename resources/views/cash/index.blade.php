@@ -129,6 +129,13 @@
                 </td>
                 <td>
                     <a
+                        href="#"
+                        class="badge bg-success"
+                        data-bs-toggle="modal"
+                        data-bs-target="#image"
+                        ><i class="bi bi-pencil-square"></i
+                    ></a>
+                    <a
                         href="/cash/{{ $data->slug }}/edit"
                         class="badge bg-warning"
                         data-bs-toggle="tooltip"
@@ -169,6 +176,83 @@
     <div class="row">
         <div class="col-md-8">
             {{ $datas->onEachside(2)->links() }}
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+        class="modal fade"
+        id="image"
+        tabindex="-1"
+        aria-labelledby="imageLabel"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="imageLabel">
+                        Modal title
+                    </h1>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        @if($data->image)
+                        <img
+                            width="200"
+                            src="{{ asset('storage/'. $data->image->url) }}"
+                            class="rounded-circle mx-auto d-block shadow my-3"
+                            alt="about Image"
+                        />
+                        <form
+                            action="/dashboard/employee/image/{{ $data->slug }}"
+                            method="post"
+                            class="d-inline"
+                        >
+                            <input
+                                type="hidden"
+                                name="id"
+                                value="{{ $data->image->id }}"
+                            />
+                            @method('delete') @csrf
+                            <button
+                                class="badge bg-danger"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Delete Image Employee"
+                                onclick="return confirm('are You sure ??')"
+                            >
+                                <i class="bi bi-file-x-fill"></i>
+                            </button>
+                        </form>
+                        @else
+                        <img
+                            class="rounded-circle mx-auto d-block shadow my-3"
+                            src="http://source.unsplash.com/200x200?truck"
+                            alt=""
+                            width="250"
+                        />
+                        @endif
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                    >
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                        Save changes
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </x-dashboard>

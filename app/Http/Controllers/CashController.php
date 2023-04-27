@@ -10,6 +10,7 @@ use App\Exports\CashflowExport;
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\support\Facades\Storage;
 
 class CashController extends Controller
 {
@@ -69,11 +70,20 @@ class CashController extends Controller
         ]);
 
         $validatedData['slug'] = Str::slug(
-            $request->acount_id . $request->tgl . $request->description,
+            rand(10, 100) .
+                $request->acount_id .
+                $request->tgl .
+                $request->description,
             '-'
         );
 
-        Cashflow::create($validatedData);
+        $cashflow = Cashflow::create($validatedData);
+
+        if ($request->file('url')) {
+            $valid = $request->validate(['url' => 'image|file|max:2048']);
+            $valid['url'] = $request->file('url')->store('cashflow-url');
+            $cashflow->image()->create($valid);
+        }
 
         return redirect('/cash')->with('success', 'data Telah Tersimpan');
     }
@@ -104,6 +114,11 @@ class CashController extends Controller
     public function destroy(Cashflow $cashflow)
     {
         $cashflow->destroy($cashflow->id);
+
+        if ($cashflow->image) {
+            storage::delete($cashflow->image->url);
+            $cashflow->image->delete();
+        }
 
         return redirect('/cash')->with('success', 'Data Berhasil Terhapus');
     }
