@@ -28,7 +28,7 @@ class CashController extends Controller
         return view('cash.index', [
             'title' => 'Cash Keluar Masuk',
             'saldo' => $saldo2,
-            'datas' => Cashflow::with('acount')
+            'datas' => Cashflow::with('acount', 'image')
                 ->where('tgl', '=', date('Y-m-d'))
                 ->orderBY('tgl', 'ASC')
                 ->paginate(10)
