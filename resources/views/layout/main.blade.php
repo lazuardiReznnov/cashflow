@@ -7,7 +7,7 @@
 
         <title>{{ config("app.name", "Laravel") }} || {{ $title }}</title>
         @vite(['resources/sass/app.scss', 'resources/js/app.js']) @stack('css')
-        @stack('script')
+        @stack('script') @stack('script2')
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">

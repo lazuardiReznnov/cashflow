@@ -128,7 +128,15 @@
                 <td>
                     {{ \Carbon\Carbon::parse($data->tgl)->format('d M Y') }}
                 </td>
-                <td>{{ $data->description }}</td>
+                <td>
+                    {{ $data->description }} <br />
+                    @foreach($data->tags as $tag)
+                    <div class="badge bg-primary">
+                        {{ $tag->name }}
+                    </div>
+
+                    @endforeach
+                </td>
                 <td>@currency($data->debet)</td>
                 <td>@currency($data->credit)</td>
                 <td>

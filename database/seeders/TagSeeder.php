@@ -19,5 +19,8 @@ class TagSeeder extends Seeder
         tag::create([
             'name' => 'prive',
         ]);
+        tag::create([
+            'name' => 'income',
+        ]);
     }
 }

@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\tag;
 use App\Models\acount;
 use App\Models\Cashflow;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Exports\CashflowExport;
 use Illuminate\Support\Carbon;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\CashflowExport;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\support\Facades\Storage;
 
 class CashController extends Controller
@@ -28,7 +29,7 @@ class CashController extends Controller
         return view('cash.index', [
             'title' => 'Cash Keluar Masuk',
             'saldo' => $saldo2,
-            'datas' => Cashflow::with('acount', 'image')
+            'datas' => Cashflow::with('acount', 'image', 'tags')
                 ->where('tgl', '=', date('Y-m-d'))
                 ->orderBY('tgl', 'ASC')
                 ->paginate(10)
@@ -48,6 +49,7 @@ class CashController extends Controller
         return view('cash.create-in', [
             'title' => 'Add Transaction',
             'datas' => acount::where('state', '=', 0)->get(),
+            'tags' => tag::all(),
         ]);
     }
 
@@ -56,6 +58,7 @@ class CashController extends Controller
         return view('cash.create-out', [
             'title' => 'Add Transaction',
             'datas' => acount::where('state', '=', 1)->get(),
+            'tags' => tag::all(),
         ]);
     }
 
@@ -78,6 +81,9 @@ class CashController extends Controller
         );
 
         $cashflow = Cashflow::create($validatedData);
+        if ($request->tag_id) {
+            $cashflow->tags()->sync([$request->tag_id]);
+        }
 
         if ($request->file('url')) {
             $valid = $request->validate(['url' => 'image|file|max:2048']);
@@ -93,7 +99,8 @@ class CashController extends Controller
         return view('cash.edit', [
             'title' => 'Edit Transaction',
             'acount' => acount::all(),
-            'data' => $cashflow->load('image'),
+            'data' => $cashflow->load('image', 'tags'),
+            'tags' => tag::all(),
         ]);
     }
 
