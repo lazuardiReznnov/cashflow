@@ -3,6 +3,7 @@
 use App\Http\Controllers\AcountController;
 use App\Http\Controllers\CashController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\tagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +23,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(ReportController::class)->group(function () {
     Route::get('/', 'index');
+    Route::get('/report/tag-detail/{id}', 'tagdetail');
 });
+
+Route::resource('/cash/tag', tagController::class);
 
 Route::controller(AcountController::class)->group(function () {
     route::get('/cash/acount/checkSlug', 'checkSlug');

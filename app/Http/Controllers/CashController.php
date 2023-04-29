@@ -82,7 +82,7 @@ class CashController extends Controller
 
         $cashflow = Cashflow::create($validatedData);
         if ($request->tag_id) {
-            $cashflow->tags()->sync([$request->tag_id]);
+            $cashflow->tags()->sync($request->tag_id);
         }
 
         if ($request->file('url')) {
@@ -115,6 +115,9 @@ class CashController extends Controller
         ]);
 
         Cashflow::where('id', $cashflow->id)->update($validatedData);
+        if ($request->tag_id) {
+            $cashflow->tags()->sync($request->tag_id);
+        }
 
         if ($request->file('url')) {
             if ($request->old_url) {

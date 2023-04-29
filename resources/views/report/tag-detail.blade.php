@@ -1,28 +1,24 @@
 <x-dashboard title="{{ $title }}">
-    <h3 class="text-uppercase my-3">Report</h3>
+    <h3 class="text-uppercase my-3">{{ $title }}</h3>
 
-    <div class="row mt-3 mb-3">
-        <div class="col-md-6">
+    <div class="row justify-content-bettwen">
+        <div class="col-md-8">
             <div class="btn-group" role="group" aria-label="Basic example">
                 <a
-                    href="/cash"
+                    href="/"
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
-                    title="Cash Flow"
+                    title="Back"
                     class="btn btn-primary"
-                    ><i class="bi bi-wallet"></i> CASHFLOW</a
+                    ><i class="bi bi-backspace-fill"></i> Back</a
                 >
             </div>
         </div>
     </div>
-
-    <ul class="list-group">
-        @foreach($datas as $data)
-        <li class="list-group-item">
-            {{ $data->name }}-{{ $data->description }} <br />
-            @if($data->cashflow->count())
-            <div class="row">
-                <div class="col">
+    <div class="row mt-3 mb-3">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
                     <table class="table">
                         <thead>
                             <tr>
@@ -38,23 +34,13 @@
                             $nilai=0;
                          ?>
                         <tbody>
-                            @foreach($data->cashflow as $cf)
+                            @foreach($datas as $cf)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>
                                     {{ \Carbon\Carbon::parse($cf->tgl)->format('d M Y') }}
                                 </td>
-                                <td>
-                                    {{ $cf->description }} <br />
-                                    @foreach($cf->tags as $tag)
-                                    <a
-                                        href="/report/tag-detail/{{ $tag->id }}"
-                                        class="badge bg-primary text-decoration-none"
-                                        >{{ $tag->name }}</a
-                                    >
-
-                                    @endforeach
-                                </td>
+                                <td>{{ $cf->description }} <br /></td>
                                 @if($cf->debet != 0)
                                 <?php 
                                     $nilai = $cf->debet ?> @else
@@ -71,15 +57,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-            @else @endif
-        </li>
-        @endforeach
-    </ul>
-    <div class="card">
-        <div class="row">
-            <div class="col-md-8">
-                {{ $datas->onEachside(2)->links() }}
             </div>
         </div>
     </div>

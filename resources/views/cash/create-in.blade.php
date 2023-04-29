@@ -125,9 +125,9 @@
                 <div class="form-floating mb-3">
                     <select
                         class="form-select @error('tag_id') is-invalid @enderror js-example-basic-multiple"
-                        id="tag_id[]"
+                        id="tag_id"
                         aria-label="acount"
-                        name="tag_id"
+                        name="tag_id[]"
                         multiple="multiple"
                     >
                         @foreach($tags as $tag) @if(old('tag_id' )==$tag->id)
