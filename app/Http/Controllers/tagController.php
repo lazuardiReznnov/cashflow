@@ -33,7 +33,9 @@ class tagController extends Controller
      */
     public function create()
     {
-        //
+        return view('cash.tag.create', [
+            'title' => 'Form Tag',
+        ]);
     }
 
     /**
@@ -41,7 +43,13 @@ class tagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
+
+        tag::create($validatedData);
+
+        return redirect('/cash/tag')->with('success', 'Data Has Been Added');
     }
 
     /**
@@ -57,7 +65,10 @@ class tagController extends Controller
      */
     public function edit(tag $tag)
     {
-        //
+        return view('cash.tag.edit', [
+            'title' => 'Edit Tag',
+            'data' => $tag,
+        ]);
     }
 
     /**
@@ -65,7 +76,13 @@ class tagController extends Controller
      */
     public function update(Request $request, tag $tag)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
+
+        tag::where('id', $tag->id)->update($validatedData);
+
+        return redirect('cash/tag')->with('success', 'Data Has Been Updated');
     }
 
     /**
@@ -73,6 +90,8 @@ class tagController extends Controller
      */
     public function destroy(tag $tag)
     {
-        //
+        $tag->destroy($tag->id);
+
+        return redirect('cash/tag')->with('success', 'Data Has Been Deleted');
     }
 }
